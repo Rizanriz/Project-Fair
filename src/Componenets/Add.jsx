@@ -10,6 +10,7 @@ function Add() {
   return (
     <>
       <button onClick={handleShow} className='btn btn-primary m-3'><i className="fa-solid fa-plus"></i>Add Project</button>
+      
       <Modal size='lg' show={show} onHide={handleClose} backdrop="static" keyboard={false}>
         <Modal.Header closeButton>
           <Modal.Title>New project details !!!</Modal.Title>
