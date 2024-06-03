@@ -5,7 +5,7 @@ import Profile from '../Componenets/Profile'
 
 function Dashboard() {
   return (
-    <div>
+    <div style={{height:"100vh"}}>
       <Header insideDashboard={true}/>
       <div className='container-fluid' style={{marginTop:"100px"}}>
         <div className='row mt-3'>
