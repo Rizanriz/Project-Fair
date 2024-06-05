@@ -50,7 +50,6 @@ function ProjectCard() {
           </div>
         </Modal.Body>
       </Modal>
-
     </>
   )
 }
