@@ -24,13 +24,13 @@ function Home() {
 
       <div className='mt-5 text-center'>
         <h2>Explore out project</h2>
-        <marquee>
+        {/* <marquee> */}
           <div className="d-flex">
             <div className=" w-100">
               <ProjectCard />
             </div>
           </div>  
-        </marquee>
+        {/* </marquee> */}
         <button className='btn btn-link mt-3'>CLICK HERE TO VIEW MORE PROJECTS</button>
       </div>
       <div className="d-flex align-items-center flex-column mt-5">

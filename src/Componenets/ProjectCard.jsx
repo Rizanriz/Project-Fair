@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Modal, Button, Card } from 'react-bootstrap';
-// import './ProjectCard.css'
+import './ProjectCard.css'
 
 function ProjectCard() {
 
@@ -11,23 +11,56 @@ function ProjectCard() {
 
   return (
     <>
-      {/* <div className="wrapper">
-        <div className="item item1"></div>
-        <div className="item item2"></div>
-        <div className="item item3"></div>
-        <div className="item item4"></div>
-        <div className="item item5"></div>
-        <div className="item item6"></div>
-        <div className="item item7"></div>
-        <div className="item item8"></div>
-      </div> */}
+      <div className="wrapper">
+        <div className="item item1">
+          <Card onClick={handleShow} classname="shadow btn"  >
+            <Card.Img variant="top" height={"200px"} src="holder.js/100px180" />
+            <Card.Body>
+              <Card.Title >Card Title</Card.Title>
+            </Card.Body>
+          </Card>
+        </div>
+        <div className="item item2">
+        <Card onClick={handleShow} classname="shadow btn"  >
+            <Card.Img variant="top" height={"200px"} src="holder.js/100px180" />
+            <Card.Body>
+              <Card.Title >Card Title</Card.Title>
+            </Card.Body>
+          </Card>
+        </div>
+        <div className="item item3">
+        <Card onClick={handleShow} classname="shadow btn"  >
+            <Card.Img variant="top" height={"200px"} src="holder.js/100px180" />
+            <Card.Body>
+              <Card.Title >Card Title</Card.Title>
+            </Card.Body>
+          </Card>
+        </div>
+        <div className="item item4">
+        <Card onClick={handleShow} classname="shadow btn"  >
+            <Card.Img variant="top" height={"200px"} src="holder.js/100px180" />
+            <Card.Body>
+              <Card.Title >Card Title</Card.Title>
+            </Card.Body>
+          </Card>
+        </div>
+        <div className="item item5">
+        <Card onClick={handleShow} classname="shadow btn"  >
+            <Card.Img variant="top" height={"200px"} src="holder.js/100px180" />
+            <Card.Body>
+              <Card.Title >Card Title</Card.Title>
+            </Card.Body>
+          </Card>
+        </div>
+      </div>
 
-      <Card onClick={handleShow} classname="shadow btn"  >
+      {/* <Card onClick={handleShow} classname="shadow btn"  >
         <Card.Img variant="top" height={"200px"} src="holder.js/100px180"  />
         <Card.Body>
           <Card.Title >Card Title</Card.Title>
         </Card.Body>
       </Card>
+      */}
 
       <Modal className='mt-5' size='lg' show={show} onHide={handleClose}>
         <Modal.Header closeButton>
