@@ -13,7 +13,9 @@ function Home() {
             <div className="col-lg-6">
               <h1 style={{ fontSize: "70px" }}><i class="fa-solid fa-diagram-project"></i> Project Fair</h1>
               <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae ab voluptatum in excepturi amet eaque aspernatur, nisi sint et expedita aliquid esse! Ea beatae quo perferendis est at. Hic, porro?</p>
-              <Link to={'/login'} className='btn btn-warning mt-3'>START TO EXPLORE</Link>
+              { sessionStorage.getItem("token") ?
+              <Link to={'/dashboard'} className='btn btn-warning mt-3'>MANAGE YOUR PROJECTS</Link> :
+                <Link to={'/login'} className='btn btn-warning mt-3'>START TO EXPLORE</Link> }
             </div>
             <div className="col-lg-6">
               <img className='img-fluid' src={img1} alt="" />
