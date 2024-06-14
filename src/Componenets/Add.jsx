@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import uploadImg from '../assets/upload.png'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Add() {
 
@@ -11,7 +13,10 @@ function Add() {
   });
   const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setShow(false)
+    setProjectdetail({title: "", languages: "", githuib: "", website: "", overview: "", projectImg:""})
+  };
   const handleShow = () => setShow(true);
 
   useEffect(() => {
@@ -27,6 +32,32 @@ function Add() {
       setProjectdetail({ ...projectdetail, projectImg:"" });
     }
   }, [projectdetail.projectImg]);
+
+  const handleAddProject = () =>{
+      if (projectdetail.title && projectdetail.languages && projectdetail.githuib && projectdetail.website &&
+        projectdetail.overview && projectdetail.projectImg ){
+        //ai call
+
+        const reqbody = new FormData()
+        reqbody.append("title",title)
+        reqbody.append("languages",languages)
+        reqbody.append("githuib",githuib)
+        reqbody.append("website",website)
+        reqbody.append("overview",overview)
+        reqbody.append("projectImg",projectImg)
+
+        const token = sessionStorage.getItem("token")
+        if (token) {
+          const reqHeader = {
+            "Content-Type" : "application/json",
+            "Authorization" : `Bearer ${token}`
+          }
+        }
+
+      }else{
+        toast.warning("Please fill the form complitily")
+      }
+  }
 
   return (
     <>
@@ -79,7 +110,8 @@ function Add() {
           <Button variant="secondary" onClick={handleClose}>
             Cancel
           </Button>
-          <Button variant="primary">Add</Button>
+          <Button variant="primary" onClick={handleAddProject}>Add</Button>
+          <ToastContainer position='top-center' theme='colored' autoClose={3000} />
         </Modal.Footer>
       </Modal>
     </>
