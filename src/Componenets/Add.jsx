@@ -3,19 +3,20 @@ import { Button, Modal } from 'react-bootstrap';
 import uploadImg from '../assets/upload.png'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { addProjectAPI } from '../../services/allAPI';
 
 function Add() {
 
   const [imgStatus, setImgStatus] = useState(false);
-  const [preview,setPreview] = useState(uploadImg)
+  const [preview, setPreview] = useState(uploadImg)
   const [projectdetail, setProjectdetail] = useState({
-    title: "", languages: "", githuib: "", website: "", overview: "", projectImg:""
+    title: "", languages: "", github: "", website: "", overview: "", projectImg: ""
   });
   const [show, setShow] = useState(false);
 
   const handleClose = () => {
     setShow(false)
-    setProjectdetail({title: "", languages: "", githuib: "", website: "", overview: "", projectImg:""})
+    setProjectdetail({ title: "", languages: "", github: "", website: "", overview: "", projectImg: "" })
   };
   const handleShow = () => setShow(true);
 
@@ -29,34 +30,47 @@ function Add() {
       setPreview(URL.createObjectURL(projectdetail.projectImg))
     } else {
       setImgStatus(false);
-      setProjectdetail({ ...projectdetail, projectImg:"" });
+      setProjectdetail({ ...projectdetail, projectImg: "" });
     }
   }, [projectdetail.projectImg]);
 
-  const handleAddProject = () =>{
-      if (projectdetail.title && projectdetail.languages && projectdetail.githuib && projectdetail.website &&
-        projectdetail.overview && projectdetail.projectImg ){
-        //ai call
+  const handleAddProject = async () => {
+    const { title, languages, github, website, overview, projectImg } = projectdetail
 
-        const reqbody = new FormData()
-        reqbody.append("title",title)
-        reqbody.append("languages",languages)
-        reqbody.append("githuib",githuib)
-        reqbody.append("website",website)
-        reqbody.append("overview",overview)
-        reqbody.append("projectImg",projectImg)
+    if (projectdetail.title && projectdetail.languages && projectdetail.github && projectdetail.website &&
+      projectdetail.overview && projectdetail.projectImg) {
+      //ai call
 
-        const token = sessionStorage.getItem("token")
-        if (token) {
-          const reqHeader = {
-            "Content-Type" : "application/json",
-            "Authorization" : `Bearer ${token}`
-          }
+      const reqbody = new FormData()
+      reqbody.append("title", title)
+      reqbody.append("languages", languages)
+      reqbody.append("github", github)
+      reqbody.append("website", website)
+      reqbody.append("overview", overview)
+      reqbody.append("projectImg", projectImg)
+
+      const token = sessionStorage.getItem("token")
+      if (token) {
+        const reqHeader = {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
         }
-
-      }else{
-        toast.warning("Please fill the form complitily")
-      }
+        try {
+          const result = await addProjectAPI(reqbody, reqHeader)
+          console.log(result);
+          if (result.status == 200) {
+            handleClose()
+            toast.success("project added successfully")
+          } else {
+            toast.warning(result.response.data)
+          }
+        } catch (err) {
+          console.log(err);
+        }
+      } 
+    } else {
+      toast.warning("Please fill the form complitily")
+    }
   }
 
   return (
@@ -93,7 +107,7 @@ function Add() {
               </div>
               <div className="m-4">
                 <input type="text" className='form-control' placeholder='Project Github link'
-                  value={projectdetail.githuib} onChange={e => setProjectdetail({ ...projectdetail, githuib: e.target.value })} />
+                  value={projectdetail.github} onChange={e => setProjectdetail({ ...projectdetail, github: e.target.value })} />
               </div>
               <div className="m-4">
                 <input type="text" className='form-control' placeholder='Project website link'
