@@ -50,7 +50,6 @@ function Add() {
       reqBody.append("projectImg", projectImg)
 
       const token = sessionStorage.getItem("token")
-      console.log(token);
       if (token) {
         const reqHeader = {
           "Content-Type":"multipart/form-data",
