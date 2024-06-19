@@ -8,7 +8,7 @@ function Project() {
 
   const [allProjects, setAllprojects] = useState([])
 
-  console.log(allProjects);
+  // console.log(allProjects);
 
   useEffect(() => {
     getAllProjects()
@@ -24,7 +24,7 @@ function Project() {
       }
       try {
         const result = await allProjectAPI(reqHeader)
-        console.log(result);
+        // console.log(result);
         if (result.status == 200) {
           setAllprojects(result.data)
         }
