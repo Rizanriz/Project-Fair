@@ -47,7 +47,7 @@ const Auth = ({ insideRegister }) => {
         if (result.status == 200) {
           setIsLoading(true)
           sessionStorage.setItem("user", JSON.stringify(result.data.user)) //to keep userdata
-          sessionStorage.setItem("token",result.data.tocken)
+          sessionStorage.setItem("token",result.data.token)
           // toast.warning(`welcome ${result.data.user.username}`)
           setUserData({username:"",email:"",password:""})
           setTimeout(() => {

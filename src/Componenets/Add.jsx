@@ -41,26 +41,26 @@ function Add() {
       projectdetail.overview && projectdetail.projectImg) {
       //ai call
 
-      const reqbody = new FormData()
-      reqbody.append("title", title)
-      reqbody.append("languages", languages)
-      reqbody.append("github", github)
-      reqbody.append("website", website)
-      reqbody.append("overview", overview)
-      reqbody.append("projectImg", projectImg)
+      const reqBody = new FormData()
+      reqBody.append("title", title)
+      reqBody.append("languages", languages)
+      reqBody.append("github", github)
+      reqBody.append("website", website)
+      reqBody.append("overview", overview)
+      reqBody.append("projectImg", projectImg)
 
       const token = sessionStorage.getItem("token")
+      console.log(token);
       if (token) {
         const reqHeader = {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
+          "Content-Type":"multipart/form-data",
+          "Authorization":`Bearer ${token}`
         }
         try {
-          const result = await addProjectAPI(reqbody, reqHeader)
-          console.log(result);
-          if (result.status == 200) {
-            handleClose()
-            toast.success("project added successfully")
+          const result = await addProjectAPI(reqBody,reqHeader)
+          if (result.status==200) {
+            handleClose();
+            toast.success("Project added successfully");
           } else {
             toast.warning(result.response.data)
           }
