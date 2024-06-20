@@ -1,18 +1,22 @@
 import React, { createContext, useState } from 'react'
 
 export const addResponceContext = createContext("")
+export const editResponseContext = createContext("")
 
-const ContextAPI = ({children}) => {
+const ContextAPI = ({ children }) => {
 
-    const [addResponce,setAddresponce] = useState("")
+    const [addResponce, setAddresponce] = useState("")
+    const [editResponse, setEditResponse] = useState("")
 
-  return (
-    <>
-        <addResponceContext.Provider value={[addResponce,setAddresponce]}>
-                {children}
-        </addResponceContext.Provider>
-    </>
-  )
+    return (
+        <>
+            <addResponceContext.Provider value={[addResponce, setAddresponce]}>
+                <editResponseContext.Provider value={[editResponse, setEditResponse]}>
+                    {children}
+                </editResponseContext.Provider>
+            </addResponceContext.Provider>
+        </>
+    )
 }
 
 export default ContextAPI

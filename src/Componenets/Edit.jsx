@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Button, Modal } from 'react-bootstrap';
 import SERVERURL from '../../services/serverUrl';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { editProjectAPI } from '../../services/allAPI';
+import { editResponseContext } from '../context/ContextAPI';
 
 function Edit({ projects }) {
 
@@ -11,6 +13,7 @@ function Edit({ projects }) {
     website: projects?.website, overview: projects?.overview, projectImg: ""
   });
 
+  const [editResponse, setEditResponse] = useContext(editResponseContext)
   const [imgStatus, setImgStatus] = useState(true);
   const [preview, setPreview] = useState("")
   const [show, setShow] = useState(false);
@@ -19,10 +22,14 @@ function Edit({ projects }) {
     setShow(false) //when cancel make values to defualt values
     setProjectdetail({
       id: projects?._id, title: projects?.title, languages: projects?.languages, github: projects?.github,
-      website: projects?.website, overview: projects?.overview, projectImg: ""
-    })
+      website: projects?.website, overview: projects?.overview, projectImg: ""})
   };
-  const handleShow = () => setShow(true);
+  const handleShow = () => {
+    setShow(true)
+    setProjectdetail({
+      id: projects?._id, title: projects?.title, languages: projects?.languages, github: projects?.github,
+      website: projects?.website, overview: projects?.overview, projectImg: ""})
+  };
 
   useEffect(() => {
     if (projectdetail.projectImg) {
@@ -35,8 +42,8 @@ function Edit({ projects }) {
     }
   }, [projectdetail.projectImg])
 
-  const hamdleUpdateProject = () =>{
-    const { title, languages, github, website, overview, projectImg } = projectdetail
+  const hamdleUpdateProject = async () =>{
+    const {id, title, languages, github, website, overview, projectImg } = projectdetail
 
     if (title && languages && github && website && overview) {
       const reqBody = new FormData()
@@ -51,6 +58,18 @@ function Edit({ projects }) {
         const reqHeader = {
           "Content-Type": preview ? "multipart/form-data" : "application/json",
           "Authorization":`Bearer ${token}`
+        }
+        //api call
+        try {
+          const result = await editProjectAPI(id,reqBody,reqHeader)
+          console.log(result);
+          if (result.status==200) {
+            handleClose()
+            // window.location.reload()
+            setEditResponse(result) //pass responce to view
+          }
+        } catch (err) {
+          console.log(err);
         }
       }
     } else {
