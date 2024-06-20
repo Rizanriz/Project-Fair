@@ -20,7 +20,7 @@ function Home() {
   const getHomeProjects = async () => {
     try {
       const result = await homeProjectAPI()
-      console.log(result);
+      // console.log(result);
 
       if (result.status == 200) {
         setHomeProjects(result.data)

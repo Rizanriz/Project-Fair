@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import uploadImg from '../assets/upload.png'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { addProjectAPI } from '../../services/allAPI';
+import { addResponceContext } from '../context/ContextAPI';
 
 function Add() {
 
+  const [addResponce,setAddresponce] = useContext(addResponceContext)
   const [imgStatus, setImgStatus] = useState(false);
   const [preview, setPreview] = useState(uploadImg)
   const [projectdetail, setProjectdetail] = useState({
@@ -59,7 +61,7 @@ function Add() {
           const result = await addProjectAPI(reqBody,reqHeader)
           if (result.status==200) {
             handleClose();
-            toast.success("Project added successfully");
+            setAddresponce(result)
           } else {
             toast.warning(result.response.data)
           }
