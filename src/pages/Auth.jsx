@@ -1,12 +1,14 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { FloatingLabel, Form, Spinner } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { loginAPI, registerAPI } from '../../services/allAPI';
+import { tokenAuthContext } from '../context/AuthContext';
 
 const Auth = ({ insideRegister }) => {
 
+  const  [isAutherised, setIsAutherised] = useContext(tokenAuthContext)
   const navigate = useNavigate()
   const [isLoading,setIsLoading] = useState(false)
   const [userData, setUserData] = useState({
@@ -48,7 +50,7 @@ const Auth = ({ insideRegister }) => {
           setIsLoading(true)
           sessionStorage.setItem("user", JSON.stringify(result.data.user)) //to keep userdata
           sessionStorage.setItem("token",result.data.token)
-          // toast.warning(`welcome ${result.data.user.username}`)
+          setIsAutherised(true)
           setUserData({username:"",email:"",password:""})
           setTimeout(() => {
             setIsLoading(false)

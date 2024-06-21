@@ -6,13 +6,14 @@ import { allProjectAPI } from '../../services/allAPI'
 
 function Project() {
 
+  const [searchKey,setSearchKey] = useState("")
   const [allProjects, setAllprojects] = useState([])
 
   // console.log(allProjects);
 
   useEffect(() => {
     getAllProjects()
-  }, [])
+  }, [searchKey])
 
 
   const getAllProjects = async () => {
@@ -23,7 +24,7 @@ function Project() {
         "Authorization": `Bearer ${token}`
       }
       try {
-        const result = await allProjectAPI(reqHeader)
+        const result = await allProjectAPI(searchKey,reqHeader)
         // console.log(result);
         if (result.status == 200) {
           setAllprojects(result.data)
@@ -35,11 +36,11 @@ function Project() {
   }
   return (
     <>
-      <Header />
+       <Header insideDashboard={true}/>
       <div style={{ marginTop: "150px" }} className='container-fluid'>
         <div className='d-flex justify-content-between align-items-center'>
           <h1>All Projects</h1>
-          <input type="text" className='form-control w-25' placeholder='Search projects...' />
+          <input onChange={e=>setSearchKey(e.target.value )} type="text" className='form-control w-25' placeholder='Search projects...' />
         </div>
         <Row>
           {
